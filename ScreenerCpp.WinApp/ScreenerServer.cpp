@@ -7,6 +7,7 @@
 #include <winsock.h>
 #include "screen_util.h"
 #include "byte_util.h"
+#include <ctime>
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -16,6 +17,16 @@
 
 ScreenerServer::ScreenerServer()
 {
+	//clock_t tStart = clock();
+	//for(auto i = 0; i < 1000; i++)
+	//{
+	//	auto buffer = screener::winapp::util::screen_util::get_window_screen();
+	//}
+
+	//auto x = (double)(clock() - tStart) / CLOCKS_PER_SEC;
+	//printf("Time taken: %.2fs\n", x);
+
+
 	int i_server_sock;
 
 	struct sockaddr_in server_addr;
@@ -97,7 +108,7 @@ ScreenerServer::ScreenerServer()
 
 		while (true)
 		{
-			auto buffer = screener::winapp::util::screen_util::get_desktop_screen_shot();
+			auto buffer = screener::winapp::util::screen_util::get_window_screen();
 			screener::winapp::util::byte_util::insert_length(buffer);
 			send(i_client_sock, buffer.data(), buffer.size(), 0);
 		}
