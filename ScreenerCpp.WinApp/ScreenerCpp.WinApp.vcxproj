@@ -148,18 +148,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="byte_util.h" />
+    <ClInclude Include="byte_util.hpp" />
+    <ClInclude Include="byte_destructor.hpp" />
+    <ClInclude Include="client.hpp" />
+    <ClInclude Include="image_destructor.hpp" />
+    <ClInclude Include="image_wrapper.hpp" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="ScreenerCpp.WinApp.h" />
-    <ClInclude Include="ScreenerServer.h" />
-    <ClInclude Include="screen_util.h" />
+    <ClInclude Include="ScreenerCpp.WinApp.hpp" />
+    <ClInclude Include="tcp_server.hpp" />
+    <ClInclude Include="screen_util.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="udp_server.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="byte_util.cpp" />
+    <ClCompile Include="byte_destructor.cpp" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="image_destructor.cpp" />
     <ClCompile Include="ScreenerCpp.WinApp.cpp" />
-    <ClCompile Include="ScreenerServer.cpp" />
+    <ClCompile Include="tcp_server.cpp" />
     <ClCompile Include="screen_util.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -167,6 +175,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="udp_server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ScreenerCpp.WinApp.rc" />

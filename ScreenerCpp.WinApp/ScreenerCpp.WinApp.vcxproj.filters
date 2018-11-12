@@ -13,11 +13,26 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\util">
+    <Filter Include="Source Files\destructors">
+      <UniqueIdentifier>{21e54f1d-7b98-4d26-b711-4e2d39ce46c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
       <UniqueIdentifier>{1b5d7022-282f-4ef1-9e7c-805456e3aeed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\util">
+    <Filter Include="Header Files\utils">
       <UniqueIdentifier>{3362dcc7-28b4-480e-819e-f47977a8e47b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\destructors">
+      <UniqueIdentifier>{fe2e34f7-63d7-4c58-abf4-e6c4cd87a74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\data">
+      <UniqueIdentifier>{a017668b-7f9d-4972-a43a-0ec986021187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\server">
+      <UniqueIdentifier>{53a7c9d2-9982-4a87-abc9-d8baa5d0df67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\server">
+      <UniqueIdentifier>{67b1c0b6-c30b-4929-b058-531e50f7be58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,17 +45,32 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenerCpp.WinApp.h">
+    <ClInclude Include="byte_destructor.hpp">
+      <Filter>Header Files\destructors</Filter>
+    </ClInclude>
+    <ClInclude Include="byte_util.hpp">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="screen_util.hpp">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="image_destructor.hpp">
+      <Filter>Header Files\destructors</Filter>
+    </ClInclude>
+    <ClInclude Include="image_wrapper.hpp">
+      <Filter>Header Files\data</Filter>
+    </ClInclude>
+    <ClInclude Include="udp_server.hpp">
+      <Filter>Header Files\server</Filter>
+    </ClInclude>
+    <ClInclude Include="tcp_server.hpp">
+      <Filter>Header Files\server</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenerCpp.WinApp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenerServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="screen_util.h">
-      <Filter>Header Files\util</Filter>
-    </ClInclude>
-    <ClInclude Include="byte_util.h">
-      <Filter>Header Files\util</Filter>
+    <ClInclude Include="client.hpp">
+      <Filter>Header Files\server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,14 +80,26 @@
     <ClCompile Include="ScreenerCpp.WinApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenerServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="screen_util.cpp">
-      <Filter>Source Files\util</Filter>
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="byte_util.cpp">
-      <Filter>Source Files\util</Filter>
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="byte_destructor.cpp">
+      <Filter>Source Files\destructors</Filter>
+    </ClCompile>
+    <ClCompile Include="image_destructor.cpp">
+      <Filter>Source Files\destructors</Filter>
+    </ClCompile>
+    <ClCompile Include="udp_server.cpp">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="tcp_server.cpp">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="client.cpp">
+      <Filter>Source Files\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

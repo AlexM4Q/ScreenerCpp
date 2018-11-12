@@ -3,11 +3,11 @@
 
 using namespace std;
 
-namespace screener::winapp::util
+namespace screener::winapp::utils
 {
 	class byte_util
 	{
 	public:
-		static void insert_length(vector<char>&);
+		static void insert_int(vector<char>&, int, int);
 	};
 }
