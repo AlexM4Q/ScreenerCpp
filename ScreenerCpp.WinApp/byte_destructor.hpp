@@ -25,7 +25,7 @@ namespace screener::winapp::destructors
 	public:
 
 		static const unsigned int BUFFER_SIZE = 62000;
-		static const unsigned int BYTES_RESERVE = 4;
+		static const unsigned int BYTES_RESERVE = 3;
 
 		static void destruct(vector<char>, data_type, bytes_consumer);
 	};
