@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "screen_util.hpp"
-
 #include <windows.h>
 #include <vector>
 #include <thread>
@@ -125,12 +124,9 @@ namespace screener::winapp::utils
 		auto pixels16 = vector<char>(2 * height * width);
 		for (auto i32 = 0, i16 = 0; i16 < pixels16.size(); i32 += 4, i16 += 2)
 		{
-			const auto r = pixels32[i32 + 0];
-			const auto g = pixels32[i32 + 1];
-			const auto b = pixels32[i32 + 2];
-			const short color = ((r >> 3) << 11) & 0xF800 | ((g >> 2) << 5) & 0x07E0 | (b >> 3) & 0x001F;
-
-			//const short color = ((int(r / 255 * 31) << 11) | (int(g / 255 * 63) << 5) | (int(b / 255 * 31)));
+			const short color = pixels32[i32] >> 3 & 0x001F
+				| pixels32[i32 + 1] << 3 & 0x07E0
+				| pixels32[i32 + 2] << 8 & 0xF800;
 
 			pixels16[i16] = color;
 			pixels16[i16 + 1] = color >> 8;
