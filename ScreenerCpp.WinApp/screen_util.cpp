@@ -18,84 +18,13 @@ namespace screener::winapp::utils
 		return get_window_screen(FindWindow(nullptr, L"Безымянный - Paint"));
 	}
 
-	static void save_bitmap_to_file(char* pixels, const long width, const long height,
-	                                const WORD bpp, const LPCTSTR path)
-	{
-		const unsigned long headers_size = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
-		const unsigned long pixel_data_size = bpp / 8 * height * width;
-
-		BITMAPINFOHEADER bmp_info_header = {0};
-
-		// Set the size  
-		bmp_info_header.biSize = sizeof(BITMAPINFOHEADER);
-
-		// Bit count  
-		bmp_info_header.biBitCount = bpp;
-
-		// Use all colors  
-		bmp_info_header.biClrImportant = 0;
-
-		// Use as many colors according to bits per pixel  
-		bmp_info_header.biClrUsed = 0;
-
-		// Store as un Compressed  
-		bmp_info_header.biCompression = BI_RGB;
-
-		// Set the height in pixels  
-		bmp_info_header.biHeight = height;
-
-		// Width of the Image in pixels  
-		bmp_info_header.biWidth = width;
-
-		// Default number of planes  
-		bmp_info_header.biPlanes = 1;
-
-		// Calculate the image size in bytes  
-		bmp_info_header.biSizeImage = pixel_data_size;
-
-		BITMAPFILEHEADER bfh = {0};
-
-		// This value should be values of BM letters i.e 0x4D42  
-		// 0x4D = M 0×42 = B storing in reverse order to match with endian  
-		bfh.bfType = 0x4D42;
-		//bfh.bfType = 'B'+('M' << 8); 
-
-		// <<8 used to shift ‘M’ to end  */  
-
-		// Offset to the RGBQUAD  
-		bfh.bfOffBits = headers_size;
-
-		// Total size of image including size of headers  
-		bfh.bfSize = headers_size + pixel_data_size;
-
-		// Create the file in disk to write  
-		const auto bitmap_file = CreateFile(path, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL,
-		                                    nullptr);
-
-		// Return if error opening file  
-		if (!bitmap_file) return;
-
-		DWORD dw_written = 0;
-
-		// Write the File header  
-		WriteFile(bitmap_file, &bfh, sizeof bfh, &dw_written, nullptr);
-
-		// Write the bitmap info header  
-		WriteFile(bitmap_file, &bmp_info_header, sizeof bmp_info_header, &dw_written, nullptr);
-
-		// Write the RGB Data  
-		WriteFile(bitmap_file, pixels, bmp_info_header.biSizeImage, &dw_written, nullptr);
-
-		// Close the file handle  
-		CloseHandle(bitmap_file);
-	}
-
 	image_wrapper* screen_util::get_window_screen(const HWND handle_window)
 	{
 		RECT rect;
 		GetClientRect(handle_window, &rect);
 		const auto width = rect.right - rect.left;
 		const auto height = rect.bottom - rect.top;
+		const auto row_length = rgb565_bpp * width;
 
 		const auto hdc_window = GetWindowDC(handle_window);
 		const auto hdc = CreateCompatibleDC(hdc_window);
@@ -121,20 +50,20 @@ namespace screener::winapp::utils
 		DeleteDC(hdc);
 		DeleteObject(hbitmap);
 
-		auto pixels16 = vector<char>(2 * height * width);
-		for (auto i32 = 0, i16 = 0; i16 < pixels16.size(); i32 += 4, i16 += 2)
+		auto pixels16 = vector<char>(rgb565_bpp * height * width);
+		for (auto i32 = 0, i16 = 0; i16 < pixels16.size(); i32 += 4, i16 += rgb565_bpp)
 		{
 			const short color = pixels32[i32] >> 3 & 0x001F
 				| pixels32[i32 + 1] << 3 & 0x07E0
 				| pixels32[i32 + 2] << 8 & 0xF800;
 
-			pixels16[i16] = color;
-			pixels16[i16 + 1] = color >> 8;
+			const auto inv_ind = (height - 1 - int(i16 / row_length)) * row_length + i16 % row_length;
+
+			pixels16[inv_ind] = color;
+			pixels16[inv_ind + 1] = color >> 8;
 		}
 
 		delete[] pixels32;
-
-		save_bitmap_to_file(pixels16.data(), width, height, 16, L"C:\\Users\\zhelonkin\\bluesquare.bmp");
 
 		const auto image = new image_wrapper();
 		image->width = width;
